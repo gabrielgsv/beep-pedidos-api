@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { ApiTags } from '@nestjs/swagger';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { GetByUrlDto } from './dto/by-url';
 
 @ApiTags('Users')
 @Controller('users')
@@ -18,6 +19,12 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @IsPublic()
+  @Get('by-url')
+  findByUrl(@Query() query: GetByUrlDto) {
+    return this.usersService.findByUrl(query.url);
   }
 
   // @Patch(':id')
