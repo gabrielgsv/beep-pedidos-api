@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "types": ["serve-static"],
-    "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
