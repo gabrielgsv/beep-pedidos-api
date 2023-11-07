@@ -39,7 +39,16 @@ export class UsersService {
   }
 
   async findByUrl(url: string) {
+    console.log('url', url);
     const user = await this.prisma.user.findUnique({
+      select: {
+        name: true,
+        address: true,
+        neighborhood: true,
+        address_number: true,
+        city: true,
+        state: true,
+      },
       where: {
         url,
       },
