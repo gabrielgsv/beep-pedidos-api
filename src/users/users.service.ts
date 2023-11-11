@@ -39,9 +39,9 @@ export class UsersService {
   }
 
   async findByUrl(url: string) {
-    console.log('url', url);
     const user = await this.prisma.user.findUnique({
       select: {
+        id: true,
         name: true,
         address: true,
         neighborhood: true,
