@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateProductDto } from './dto/create-product.dto';
+import { CreateProductDto, QueryParams } from './dto/create-product.dto';
 import { Product } from './entities/product.entity';
 import { Prisma } from '@prisma/client';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -35,11 +36,31 @@ export class ProductsService {
     return `This action returns a #${id} product`;
   }
 
-  // update(id: number, updateProductDto: UpdateProductDto) {
-  //   return `This action updates a #${id} product`;
-  // }
+  async update(query: QueryParams, updateProductDto: UpdateProductDto) {
+    const data = {
+      name: updateProductDto.name,
+      image_url: updateProductDto.image_url,
+      description: updateProductDto.description,
+      price: updateProductDto.price,
+      additional: updateProductDto.additional as Prisma.JsonArray,
+    };
+    const updateProducts = await this.prisma.products.update({
+      where: {
+        id: Number(query.id),
+        user_id: Number(query.user_id),
+      },
+      data,
+    });
+    return updateProducts;
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(query: QueryParams) {
+    const removeProducts = await this.prisma.products.delete({
+      where: {
+        id: Number(query.id),
+        user_id: Number(query.user_id),
+      },
+    });
+    return removeProducts;
   }
 }

@@ -25,3 +25,13 @@ export class CreateProductDto {
   @ApiProperty()
   user_id: number;
 }
+
+export class QueryParams {
+  @IsNumber()
+  @ApiProperty()
+  user_id: number;
+
+  @IsNumber()
+  @ApiProperty()
+  id: number;
+}
