@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "types": ["serve-static", "Multer"],
+    "types": ["Multer", "serve-static"],
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
