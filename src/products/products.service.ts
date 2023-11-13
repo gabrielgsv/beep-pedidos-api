@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateProductDto, QueryParams } from './dto/create-product.dto';
-import { Product } from './entities/product.entity';
-import { Prisma } from '@prisma/client';
+import { FileProductDto } from './dto/file-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from './entities/product.entity';
+import axios from 'axios';
 
 @Injectable()
 export class ProductsService {
@@ -62,5 +64,24 @@ export class ProductsService {
       },
     });
     return removeProducts;
+  }
+
+  async uploadImage(file: FileProductDto) {
+    const body = new FormData();
+    body.set('key', process.env.IMGBB_KEY);
+    body.append('image', file.buffer.toString('base64'));
+
+    return axios({
+      method: 'post',
+      url: 'https://api.imgbb.com/1/upload',
+      data: body,
+    })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        console.log('error', error);
+        throw new HttpException('Erro ao enviar imagem', 500);
+      });
   }
 }
