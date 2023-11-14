@@ -47,7 +47,10 @@ export class ProductsController {
 
   @Post('image-upload')
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: FileProductDto) {
+  uploadFile(
+    @UploadedFile() file: FileProductDto,
+    @Body() body: { user_url: string },
+  ) {
     if (
       file.mimetype !== 'image/png' &&
       file.mimetype !== 'image/jpeg' &&
@@ -63,7 +66,7 @@ export class ProductsController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     } else {
-      return this.productsService.uploadImage(file);
+      return this.productsService.uploadImage(file, body.user_url);
     }
   }
 }
