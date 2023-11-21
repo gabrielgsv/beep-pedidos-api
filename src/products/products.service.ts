@@ -67,7 +67,6 @@ export class ProductsService {
   }
 
   async uploadImage(file: FileProductDto, user_url: string) {
-    console.log('file', file);
     const body = new FormData();
     body.set('key', process.env.IMGBB_KEY);
     body.append('image', file.buffer.toString('base64'));
