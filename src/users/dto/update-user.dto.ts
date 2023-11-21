@@ -26,6 +26,10 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 
   @ApiProperty()
   @IsString()
+  cep: string;
+
+  @ApiProperty()
+  @IsString()
   address: string;
 
   @ApiProperty()
