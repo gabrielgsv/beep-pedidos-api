@@ -67,16 +67,20 @@ export class ProductsService {
   }
 
   async uploadImage(file: FileProductDto, user_url: string) {
-    const body = new FormData();
-    body.set('key', process.env.IMGBB_KEY);
-    body.append('image', file.buffer.toString('base64'));
-    body.append('name', `${user_url}-${file.originalname}`);
-
-    return axios({
-      method: 'post',
-      url: 'https://api.imgbb.com/1/upload',
-      data: body,
-    })
+    return axios
+      .post(
+        'https://api.imgbb.com/1/upload',
+        {
+          key: process.env.IMGBB_KEY,
+          image: file.buffer.toString('base64'),
+          name: `${user_url}-${file.originalname}`,
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      )
       .then((res) => {
         return res.data;
       })
