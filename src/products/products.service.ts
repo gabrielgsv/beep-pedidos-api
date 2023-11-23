@@ -46,7 +46,7 @@ export class ProductsService {
       price: updateProductDto.price,
       additional: updateProductDto.additional as Prisma.JsonArray,
     };
-    const updateProducts = await this.prisma.products.update({
+    const updateProducts = await this.prisma.products.updateMany({
       where: {
         id: Number(query.id),
         user_id: Number(query.user_id),
