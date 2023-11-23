@@ -81,7 +81,7 @@ export class ProductsService {
         return res.data;
       })
       .catch((error) => {
-        console.log('error', error);
+        console.error('error', error);
         throw new HttpException('Erro ao enviar imagem', 500);
       });
   }
