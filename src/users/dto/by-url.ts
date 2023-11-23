@@ -7,5 +7,5 @@ export class GetByUrlDto {
 
 export class GetByIdDto {
   @ApiProperty()
-  id: number;
+  id: string;
 }
