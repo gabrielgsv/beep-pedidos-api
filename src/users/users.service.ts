@@ -3,10 +3,8 @@ import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { FileUserDto } from './dto/file-user.dto';
-import axios from 'axios';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -93,30 +91,6 @@ export class UsersService {
         throw error;
       }
     }
-  }
-
-  async uploadImage(file: FileUserDto, user_url: string) {
-    return axios
-      .post(
-        'https://api.imgbb.com/1/upload',
-        {
-          key: process.env.IMGBB_KEY,
-          image: file.buffer.toString('base64'),
-          name: `${user_url}-${file.originalname}`,
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .catch((error) => {
-        console.error('error', error);
-        throw new HttpException('Erro ao enviar imagem', 500);
-      });
   }
 
   // remove(id: number) {
