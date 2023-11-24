@@ -1,4 +1,4 @@
-export type FileProductDto = {
+export type FileDto = {
   fieldname: string;
   originalname: string;
   encoding: string;
