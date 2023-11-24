@@ -3,20 +3,14 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
-  HttpStatus,
   Param,
   Patch,
   Post,
   Query,
-  UploadedFile,
-  UseInterceptors,
 } from '@nestjs/common';
 import { CreateProductDto, QueryParams } from './dto/create-product.dto';
-import { ProductsService } from './products.service';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { FileProductDto } from './dto/file-product.dto';
+import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
@@ -43,30 +37,5 @@ export class ProductsController {
   @Delete()
   remove(@Query() query: QueryParams) {
     return this.productsService.remove(query);
-  }
-
-  @Post('image-upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(
-    @UploadedFile() file: FileProductDto,
-    @Body() body: { user_url: string },
-  ) {
-    if (
-      file.mimetype !== 'image/png' &&
-      file.mimetype !== 'image/jpeg' &&
-      file.mimetype !== 'image/jpg'
-    ) {
-      throw new HttpException(
-        'Formato do arquivo invalido, permitido apenas png, jpg ou jpeg',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    } else if (file.size > 4000000) {
-      throw new HttpException(
-        'Arquivo muito grande, permitido até 4MB',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    } else {
-      return this.productsService.uploadImage(file, body.user_url);
-    }
   }
 }
