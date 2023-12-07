@@ -32,19 +32,19 @@ export class OrdersService {
     return createOrders;
   }
 
-  findAll() {
-    return `This action returns all orders`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findByUser(userId: number) {
+    return await this.prisma.orders.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
   }
 
   // update(id: number, updateOrderDto: UpdateOrderDto) {
   //   return `This action updates a #${id} order`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} order`;
+  // }
 }

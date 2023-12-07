@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrdersService } from './orders.service';
-import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 
 @Controller('orders')
 export class OrdersController {
@@ -13,14 +13,9 @@ export class OrdersController {
     return this.ordersService.create(createOrderDto);
   }
 
-  @Get()
-  findAll() {
-    return this.ordersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+  @Get(':userId')
+  findOne(@Param('userId') userId: string) {
+    return this.ordersService.findByUser(+userId);
   }
 
   // @Patch(':id')
@@ -28,8 +23,8 @@ export class OrdersController {
   //   return this.ordersService.update(+id, updateOrderDto);
   // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.ordersService.remove(+id);
+  // }
 }
