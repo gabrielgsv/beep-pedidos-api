@@ -37,6 +37,9 @@ export class OrdersService {
       where: {
         user_id: userId,
       },
+      orderBy: {
+        created_at: 'desc',
+      },
     });
   }
 
