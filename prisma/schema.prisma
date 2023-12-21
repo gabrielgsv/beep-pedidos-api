@@ -32,6 +32,7 @@ model user {
   timetables     Json?
   image_url      String?
   products       products[]
+  orders         orders[]
 }
 
 model products {
@@ -45,4 +46,25 @@ model products {
   updated_at  DateTime @updatedAt @map(name: "updated_at")
   user        user     @relation(fields: [user_id], references: [id])
   user_id     Int
+}
+
+model orders {
+  id              Int      @id @default(autoincrement())
+  name            String
+  payment_type    String
+  phone           String
+  total           Float
+  products_orders Json
+  change          String?
+  address         String?
+  address_number  String?
+  neighborhood    String?
+  complement      String?
+  cep             String?
+  city            String?
+  state           String?
+  created_at      DateTime @default(now()) @map(name: "created_at")
+  updated_at      DateTime @updatedAt @map(name: "updated_at")
+  user            user     @relation(fields: [user_id], references: [id])
+  user_id         Int
 }
