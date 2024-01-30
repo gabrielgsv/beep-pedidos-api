@@ -31,6 +31,7 @@ model user {
   complement     String?
   timetables     Json?
   image_url      String?
+  stripeId       String?
   products       products[]
   orders         orders[]
 }
