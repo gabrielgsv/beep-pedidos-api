@@ -1,9 +1,10 @@
 ---
 created: 2024-01-30T17:26:31.662Z
-updated: 2024-01-30T17:30:49.665Z
+updated: 2024-01-31T00:16:37.372Z
 assigned: ""
 progress: 0
 tags: []
+completed: 2024-01-31T00:16:37.372Z
 ---
 
 # Adicionar tela de criação de usuario(estabelecimento)
