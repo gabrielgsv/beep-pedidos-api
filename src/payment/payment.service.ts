@@ -1,13 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
 
 @Injectable()
 export class PaymentService {
+  private readonly apiKey: string;
   private stripe: Stripe;
 
-  constructor(
-    @Inject(process.env.STRIPE_API_KEY) private readonly apiKey: string,
-  ) {
+  constructor() {
+    this.apiKey = process.env.STRIPE_API_KEY;
     this.stripe = new Stripe(this.apiKey);
   }
 
